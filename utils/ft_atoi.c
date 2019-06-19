@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjouffro <mjouffro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/11 19:56:41 by mjouffro          #+#    #+#             */
-/*   Updated: 2019/04/11 19:56:42 by mjouffro         ###   ########.fr       */
+/*   Created: 2019/06/17 16:04:15 by alperrin          #+#    #+#             */
+/*   Updated: 2019/06/19 16:46:54 by alperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-intmax_t		ft_atoi(char *s)
+intmax_t		ft_atoi(char *str)
 {
 	int		sign;
 	int		r;
 
 	r = 0;
-	while (*s == 32 || (*s >= 9 && *s <= 13))
-		s++;
-	sign = (*s == '-') ? -1 : 1;
-	(*s == '-' || *s == '+') ? s++ : s;
-	while (*s >= '0' && *s <= '9')
-		r = r * 10 + *s++ - '0';
+	while (*str == 32 || (*str >= 9 && *str <= 13))
+		str++;
+	sign = (*str == '-') ? -1 : 1;
+	(*str == '-' || *str == '+') ? str++ : str;
+	while (*str >= '0' && *str <= '9')
+		r = r * 10 + *(str++) - '0';
 	return (sign * r);
 }

@@ -32,8 +32,7 @@ CONV	=		$(CONVDIR)cast_nbrs.c			\
 
 UTILS	=		$(UTILSDIR)ft_atoi.c			\
 				$(UTILSDIR)ft_bzero.c			\
-				$(UTILSDIR)find_conv.c			\
-				$(UTILSDIR)find_flag.c			\
+				$(UTILSDIR)ft_find.c			\
 				$(UTILSDIR)ft_memcpy.c			\
 				$(UTILSDIR)ft_memset.c			\
 				$(UTILSDIR)ft_strncmp.c			\

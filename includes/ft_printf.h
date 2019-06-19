@@ -6,7 +6,7 @@
 /*   By: MathieuJouffroy <MathieuJouffroy@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 15:42:54 by mjouffro          #+#    #+#             */
-/*   Updated: 2019/05/24 14:45:18 by MathieuJouf      ###   ########.fr       */
+/*   Updated: 2019/06/19 16:29:35 by alperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,11 @@
 ** -------------------------------- FLAGS --------------------------------
 */
 
-/*
-** F_HASH  (1 << 0) --> '#'   0000 0000 0001  -->  alternate form ("0x", '0')
-** F_SPACE (1 << 1) --> ' '   0000 0000 0010  -->  ' ' b4 positive number
-** F_PLUS  (1 << 2) --> '+'   0000 0000 0100  -->  display sign of number
-** F_MINUS (1 << 3) --> '-'   0000 0000 1000  -->  left justify/padding
-** F_ZERO  (1 << 4) --> '0'   0000 0001 0000  -->  '0' padding
-*/
-
 # define F_HASH  (1 << 0)
-# define F_SPACE (1 << 1)
-# define F_PLUS  (1 << 2)
-# define F_MINUS (1 << 3)
-# define F_ZERO  (1 << 4)
+# define F_ZERO  (1 << 1)
+# define F_MINUS (1 << 2)
+# define F_PLUS  (1 << 3)
+# define F_SPACE (1 << 4)
 
 /*
 ** --------------------------- LENGTH MODIFIERS --------------------------

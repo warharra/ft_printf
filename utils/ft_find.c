@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_conv.c                                        :+:      :+:    :+:   */
+/*   ft_find.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjouffro <mjouffro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alperrin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/11 19:55:20 by mjouffro          #+#    #+#             */
-/*   Updated: 2019/04/11 21:28:08 by mjouffro         ###   ########.fr       */
+/*   Created: 2019/06/17 11:35:17 by alperrin          #+#    #+#             */
+/*   Updated: 2019/06/19 16:23:02 by alperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,21 @@ char		find_conv(char *str, char c)
 	{
 		if (str[i] == c)
 			return (str[i]);
-		i++;
+		i= i + 1;
+	}
+	return (0);
+}
+
+int			find_flag(char *str, char c)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (1 << i);
+		i= i + 1 ;
 	}
 	return (0);
 }
