@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   padding.c                                          :+:      :+:    :+:   */
+/*   ft_wcharlen.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjouffro <mjouffro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/11 20:15:12 by mjouffro          #+#    #+#             */
-/*   Updated: 2019/04/11 20:39:59 by mjouffro         ###   ########.fr       */
+/*   Created: 2019/04/11 19:58:21 by mjouffro          #+#    #+#             */
+/*   Updated: 2019/04/11 21:26:56 by mjouffro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-void	char_padding(t_printf *pf, char c)
-{
-	check_buff(pf);
-	pf->buff[pf->buff_i] = c;
-	pf->buff_i++;
-}
+/*
+**    UTF-8 encoding
+**
+** 0x7F     = max value for 1 byte  (8 bits)
+** 0x7FF    = max value for 2 bytes (16 bits)
+** 0xFFFF   = max value for 3 bytes (24 bits)
+** 0x1FFFFF = max value for 4 bytes (32 bits)
+*/
 
-void	hash_padding(t_printf *pf)
+size_t		ft_wcharlen(wint_t wc)
 {
-	char_padding(pf, '0');
-	check_buff(pf);
-	if (pf->conv == 'x' || pf->conv == 'p')
-		pf->buff[pf->buff_i++] = 'x';
-	else if (pf->conv == 'X')
-		pf->buff[pf->buff_i++] = 'X';
-}
-
-void	min_padding(t_printf *pf, char c, int len)
-{
-	if (len > 0)
-		while (len--)
-			char_padding(pf, c);
+	if (wc <= 0x7F)
+		return (1);
+	else if (wc <= 0x7FF)
+		return (2);
+	else if (wc <= 0xFFFF)
+		return (3);
+	else if (wc <= 0x1FFFFF)
+		return (4);
+	return (0);
 }

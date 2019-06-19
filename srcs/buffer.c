@@ -1,9 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   buffer.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: MathieuJouffroy <MathieuJouffroy@studen    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/11 20:17:44 by mjouffro          #+#    #+#             */
+/*   Updated: 2019/06/19 12:55:24 by warharra         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/ft_printf.h"
 
 void		reset_struct(t_printf *pf)
 {
-	printf("je rentre RESET_STRUCT\n");
-	
 	pf->flags = 0;
 	pf->precision = 0;
 	pf->min_len = 0;
@@ -15,7 +25,6 @@ void		reset_struct(t_printf *pf)
 
 /*void		reset_buff(t_printf *pf)
 {
-	printf("je rentre rest_buff\n");
 	write(pf->fd, pf->buff, BUFF_SIZE - 1);
 	ft_bzero(pf->buff, BUFF_SIZE);
 	pf->ret += (BUFF_SIZE - 1);
@@ -24,39 +33,27 @@ void		reset_struct(t_printf *pf)
 
 void		check_buff(t_printf *pf)
 {
-	printf("je rentre CHECK_BUFF\n");
 	if (pf->buff_i == BUFF_SIZE - 1)
 	{
 		//reset_buff(pf);
-	printf("je rentre rest_buff\n");
-	write(pf->fd, pf->buff, BUFF_SIZE - 1);
-	ft_bzero(pf->buff, BUFF_SIZE);
-	pf->ret += (BUFF_SIZE - 1);
-	pf->buff_i = 0;
-
-		
+		write(pf->fd, pf->buff, BUFF_SIZE - 1);
+		ft_bzero(pf->buff, BUFF_SIZE);
+		pf->ret += (BUFF_SIZE - 1);
+		pf->buff_i = 0;
 	}
-		printf("buff_i :%d\n", pf->buff_i);
 }
 
 void		buffer(t_printf *pf, char *str, int i, int n)
 {
-	printf("je rentre BUFFEriiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii\n");
 	int		len;
+
 	len = n - i;
-
-	
-	/*printf("bbbbbbbbbb%d\nlen%d\nsize%d\n",pf->buff_i ,len , BUFF_SIZE - 1);
-	
-	if (pf->buff_i + len >= BUFF_SIZE - 1)
+	/*if (pf->buff_i + len >= BUFF_SIZE - 1)
 	{
-
-	printf("je rentre BUFFEraaaaaaaaaaaaaaaaaaaaaaaaaaaaan");
 		ft_memcpy(&pf->buff[pf->buff_i], &str[i],
 				((BUFF_SIZE - 1) - pf->buff_i));
 		i += (BUFF_SIZE - 1) - pf->buff_i;
-		//reset_buff(pf);
-		check_buff(pf);
+		reset_buff(pf);
 		buffer(pf, str, i, n);
 	}*/
 	//else
@@ -69,8 +66,6 @@ void		buffer(t_printf *pf, char *str, int i, int n)
 
 void		wstr_tobuff(t_printf *pf, wchar_t *str, int len)
 {
-	printf("je rentre wstr_tobuff\n");
-
 	int i;
 
 	i = 0;

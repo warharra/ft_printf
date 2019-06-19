@@ -1,9 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: MathieuJouffroy <MathieuJouffroy@studen    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/08 19:32:47 by mjouffro          #+#    #+#             */
+/*   Updated: 2019/06/19 12:52:39 by warharra         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/ft_printf.h"
 
 void		end(t_printf *pf)
 {
-
-	printf("je rentre end\n");
 	pf->buff[pf->buff_i] = '\0';
 	write(pf->fd, pf->buff, pf->buff_i);
 	pf->ret += pf->buff_i;
@@ -12,23 +22,19 @@ void		end(t_printf *pf)
 
 int			ft_printf(const char *format, ...)
 {
-
-
-	printf("je rentre ft_printf\n");
 	t_printf	pf;
 
 	ft_bzero(&pf, sizeof(pf));
 	pf.fd = 1;
 	pf.format = (char*)format;
-	printf("format :%s\n", pf.format);
 	va_start(pf.ap, format);
 	while (*pf.format)
 	{
 		if (*pf.format == '%')
 		{
 			pf.format++;
-			if (!*pf.format)
-				break ;
+			//if (!*pf.format)
+			//	break ;
 			check_buff(&pf);
 			parse_arg(&pf);
 			reset_struct(&pf);
@@ -37,13 +43,11 @@ int			ft_printf(const char *format, ...)
 			color_or_char(&pf);
 	}
 	end(&pf);
-	return (-1);
+	return (pf.ret);
 }
 
 int			ft_dprintf(int fd, const char *format, ...)
 {
-	printf("je rentre ft_dprintf\n");fflush(stdout);
-
 	t_printf	pf;
 
 	ft_bzero(&pf, sizeof(pf));
@@ -55,8 +59,8 @@ int			ft_dprintf(int fd, const char *format, ...)
 		if (*pf.format == '%')
 		{
 			pf.format++;
-			if (!*pf.format)
-				break ;
+			//if (!*pf.format)
+				//break ;
 			check_buff(&pf);
 			parse_arg(&pf);
 			reset_struct(&pf);
@@ -65,18 +69,15 @@ int			ft_dprintf(int fd, const char *format, ...)
 			color_or_char(&pf);
 	}
 	end(&pf);
-	return (0);
+	return (pf.ret);
 }
 
 void		color_or_char(t_printf *pf)
 {
-	
-	printf("je rentre color_or_char\n");
 	int	to_buff;
 
 	if (*pf->format == '{')
 	{
-		printf("*pf->format%c\n", *pf->format);
 		if (!(color(pf) == NULL))
 		{
 			to_buff = (color(pf) == C_BOLD || color(pf) == C_UNDERLINE) ? 4 : 5;
@@ -91,8 +92,6 @@ void		color_or_char(t_printf *pf)
 	}
 	else
 	{
-		
-		printf("je rentre11111");
 		char_padding(pf, *pf->format);
 		pf->format++;
 	}
@@ -100,8 +99,6 @@ void		color_or_char(t_printf *pf)
 
 char		*color(t_printf *pf)
 {
-
-	printf("je rentre color\n ");
 	if (ft_strncmp(pf->format, "{bold}", (pf->pad = 6)) == 0)
 		return (C_BOLD);
 	else if (ft_strncmp(pf->format, "{underline}", (pf->pad = 11)) == 0)

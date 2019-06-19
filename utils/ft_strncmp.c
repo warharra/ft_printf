@@ -1,37 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   padding.c                                          :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjouffro <mjouffro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/11 20:15:12 by mjouffro          #+#    #+#             */
-/*   Updated: 2019/04/11 20:39:59 by mjouffro         ###   ########.fr       */
+/*   Created: 2019/04/11 19:58:16 by mjouffro          #+#    #+#             */
+/*   Updated: 2019/04/11 21:25:25 by mjouffro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-void	char_padding(t_printf *pf, char c)
+int		ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	check_buff(pf);
-	pf->buff[pf->buff_i] = c;
-	pf->buff_i++;
-}
+	size_t i;
 
-void	hash_padding(t_printf *pf)
-{
-	char_padding(pf, '0');
-	check_buff(pf);
-	if (pf->conv == 'x' || pf->conv == 'p')
-		pf->buff[pf->buff_i++] = 'x';
-	else if (pf->conv == 'X')
-		pf->buff[pf->buff_i++] = 'X';
-}
-
-void	min_padding(t_printf *pf, char c, int len)
-{
-	if (len > 0)
-		while (len--)
-			char_padding(pf, c);
+	if (n == 0)
+		return (0);
+	i = 0;
+	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i] && i < n - 1)
+		++i;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

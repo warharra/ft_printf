@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_args.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mjouffro <mjouffro@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/11 19:59:12 by mjouffro          #+#    #+#             */
+/*   Updated: 2019/06/19 14:47:09 by warharra         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/ft_printf.h"
 
 /*
@@ -20,26 +32,12 @@
 
 void	get_flags(t_printf *pf)
 {
-
-
-	printf("je rentre get_flags\n");
 	int res;
 
 	while ((res = find_flag("# +-0", *pf->format)) && pf->format++)
 		pf->flags |= res;
-	if ((pf->flags = 16) || (pf->flags = 8))
-	{
-		if (*pf->format >= '0' && *pf->format <= '9')
-		{
-			pf->pad = ft_atoi(pf->format);
-		}
-		while (*pf->format >= 48 && *pf->format <= 57)
-			pf->format++;
-	}
 	((pf->flags & F_MINUS) && (pf->flags & F_ZERO)) ? pf->flags &= ~F_ZERO : 0;
-	printf("flags%d\nF_ZERO%d\n", pf->flags, F_ZERO);
 	((pf->flags & F_PLUS) && (pf->flags & F_SPACE)) ? pf->flags &= ~F_SPACE : 0;
-	printf("paddddddddddpf%d\n", pf->pad);
 }
 
 /*
@@ -50,39 +48,32 @@ void	get_flags(t_printf *pf)
 
 void	get_min_len(t_printf *pf)
 {
-
-	printf("je rentre get_min_len\n");
-
+	int len;
 	if (*pf->format >= 48 && *pf->format <= 57)
 	{
-
-		printf("je rentre");
-		pf->min_len = MAX(ft_atoi(pf->format), 1);
+		//pf->min_len = MAX(ft_atoi(pf->format), 1);
+		len = ft_atoi(pf->format);
+		if(len > 1)
+			pf->min_len = len;
+		else
+			pf->min_len = 1;
 	}
 	if (*pf->format == '*')
 	{
-		
 		pf->format++;
-		if (*pf->format == 'd' || (*pf->format >= 48 && *pf->format <= 57))
-		{
-			pf->min_len = va_arg(pf->ap, int);
-			if (*pf->format >= 48 && *pf->format <= 57)
+		pf->min_len = va_arg(pf->ap, int);
+		/*if (pf->min_len < 0)
+			(pf->flags |= F_MINUS) && (pf->flags &= ~F_ZERO);
+		pf->min_len = ABS(pf->min_len);*/
+		if (*pf->format >= 48 && *pf->format <= 57)
 				pf->min_len = ft_atoi(pf->format);
-		}
-
-		//printf("min len ......... %d\n", pf->min_len);
-		//if (pf->min_len < 0)
-			//(pf->flags |= F_MINUS) && (pf->flags &= ~F_ZERO);
-		//pf->min_len = ABS(pf->min_len);
 	}
-		while (*pf->format >= 48 && *pf->format <= 57)
+	while (*pf->format >= 48 && *pf->format <= 57)
 		pf->format++;
 }
 
 void	get_precision(t_printf *pf)
 {
-
-	printf("je rentre get_precision\n");
 	if (*pf->format == '.')
 	{
 		pf->format++;
@@ -112,8 +103,6 @@ void	get_precision(t_printf *pf)
 
 void	get_length_modifier(t_printf *pf)
 {
-
-	printf("je rentre get_length_modifier\n");
 	int res;
 
 	if ((res = find_flag("hlLjz", *pf->format)))
@@ -132,9 +121,6 @@ void	get_length_modifier(t_printf *pf)
 
 int		parse_arg(t_printf *pf)
 {
-
-	printf("je rentre parse_arg\n");
-	printf("ret %d\nfd %d\nflags %d\n min_len %d\nprecision %d\n base %d\n neg %d\n pad %d\n buff_i %d\n buff %s\nformat %s\nconv %c\n", pf->ret, pf->fd, pf->flags, pf->min_len, pf->precision, pf->base, pf->neg, pf->pad, pf->buff_i, pf->buff, pf->format, pf->conv);
 	get_flags(pf);
 	get_min_len(pf);
 	get_precision(pf);
